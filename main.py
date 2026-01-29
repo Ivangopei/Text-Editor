@@ -16,8 +16,9 @@ def subtract(*num):
     return total
 
 # Division of 2 numbers
-def div(num1, num2):
-    total = num1 + num2
+def div(*num):
+    for i in num:
+        total += -i
     return total
 
 # Multiplication of 2 numbers

@@ -3,6 +3,8 @@
 import math 
 import random
 import matplotlib.pyplot as plt
+from sympy import symbols, Eq, solve
+
 
 # --- BASIC OPERATIONS ---
 # Sum of 2 numbers
@@ -102,6 +104,22 @@ def rand():
 # --- ADVANCED (GRAPHING / CAS CALCULATORS) ---
 # Solve equations
 def eq():
+    # defining symbols used in equations
+    # or unknown variables
+    x, y = symbols('x,y')
+
+    # defining equations
+    eq1 = Eq((x+y), 1)
+    print("Equation 1:")
+    print(eq1)
+    eq2 = Eq((x-y), 1)
+    print("Equation 2")
+    print(eq2)
+
+    # solving the equation
+    print("Values of 2 unknown variable are as follows:")
+
+    print(solve((eq1, eq2), (x, y)))
 
 # Graph functions
 def graphing():

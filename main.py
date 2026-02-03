@@ -1,9 +1,9 @@
 # Code written by: Ivan Gopei
 
-import math 
+import math
 import random
 import matplotlib.pyplot as plt
-from sympy import symbols, Eq, solve
+from sympy import symbols, Eq, solve, sympify, SympifyError
 
 
 # --- BASIC OPERATIONS ---
@@ -37,6 +37,7 @@ def per(perc, num):
     total = new * num
     return total
 
+
 # --- POWER & ROOTS ---
 # Square root of a digit
 def root(num):
@@ -47,6 +48,7 @@ def root(num):
 def power(num, power):
     total = math.pow(num, power)
     return(total)
+
 
 # --- SCIENTIFIC FUNCTIONS ---
 # Sin of an angle (degree or a radian)
@@ -101,25 +103,52 @@ def rand():
     total = random()
     return total
 
+
 # --- ADVANCED (GRAPHING / CAS CALCULATORS) ---
-# Solve equations
+# Solve equation
 def eq():
-    # defining symbols used in equations
-    # or unknown variables
-    x, y = symbols('x,y')
+    # Making x and y being defined as a variables in the equation
+    x = symbols('x')
 
-    # defining equations
-    eq1 = Eq((x+y), 1)
-    print("Equation 1:")
-    print(eq1)
-    eq2 = Eq((x-y), 1)
-    print("Equation 2")
-    print(eq2)
+    # Lets the user to type the equation
+    print("Enter an equation to solve for x (e.g. 2*x + 5 = 15):")
+    user_input = input("> ")
 
-    # solving the equation
-    print("Values of 2 unknown variable are as follows:")
+    # Check is the "=" sign is present in the equation
+    if '=' not in user_input:
+        print("Error: The equation must have '=' sign") 
+        return None 
 
-    print(solve((eq1, eq2), (x, y)))
+    try:
+        # Split the equation in 2 halves
+        left, right = user_input.split('=')
+
+        # Creates a math objects from the strings
+        left_eq = sympify(left)
+        right_eq = sympify(right)
+
+        # Create the equation glueing two sides that we separated from the user's input before
+        equation = Eq(left_eq, right_eq)
+
+        # Solve the equation for x
+        solution = solve(equation, x)
+        return solution
+    
+    # The exception is thrown if the user didn't type the equation correctly (e.g. x = y = z)
+    except ValueError:
+        print("Error: Please check your format. Use exactly one '=' sign.")
+        return None
+    
+    # The exception is thrown if the user didn't type the equation correctly (Bad -> x = y = z)
+    except SympifyError:
+        print("Error: Invalid syntax. Make sure to use '*' for multiplication (Bad -> 2 + * 5)")
+        return None
+    
+    # The exception is thrown if the user did anything else incorrectly (like Division by Zero)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None
+
 
 # Graph functions
 def graphing():

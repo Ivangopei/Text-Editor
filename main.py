@@ -1,5 +1,6 @@
 # Code written by: Ivan Gopei
 
+# Import modules:
 import math
 import random
 import matplotlib.pyplot as plt
@@ -7,35 +8,43 @@ from sympy import symbols, Eq, solve, sympify, SympifyError
 
 
 # --- BASIC OPERATIONS ---
-# Sum of 2 numbers
-def summation(*num):
-    for i in num:  
-        total += i
-    return total
+class basic_operations:
 
-# Subtraction of the 2 numbers
-def subtract(*num):
-    for i in num:
-        total += -i
-    return total
+    # Memory - starts at 0
+    def __init__(self):
+        self.current_value = 0
 
-# Division of 2 numbers
-def div(*num):
-    for i in num:
-        total += -i
-    return total
+    def start_new(self, number):
+        self.current_value = number
 
-# Multiplication of 2 numbers
-def mult(*num):
-    for i in num:
-        total *= num
-    return total
+    # Operations (summation, subraction, multiplication, division):
+    # Summation
+    def summation(self, *num):
+        for n in num:
+            self.current_value += n
 
-# Percentage
-def per(perc, num):
-    new = perc / 100
-    total = new * num
-    return total
+    # Subtraction
+    def subtract(self, *num):
+        for n in num:
+            self.current_value -= n
+
+    # Division
+    def div(self, *num):
+        for n in num:
+            # Skip division by 0:
+            if n == 0:
+                print("Error: Cannot divide by zero")
+                continue
+            self.current_value /= n
+
+    # Multiplication
+    def mult(self, *num):
+        for n in num:
+            self.current_value *= n
+
+    # Return the total number
+    def get_value(self):
+        return self.current_value
 
 
 # --- POWER & ROOTS ---
@@ -83,6 +92,12 @@ def atan(num):
 
 
 # --- ALGEBRA STYLE ---
+# Percentage
+def per(perc, num):
+    new = perc / 100
+    total = new * num
+    return total
+
 # Absolute value
 def absol(num):
     total = abs(num)
